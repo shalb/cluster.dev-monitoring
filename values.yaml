@@ -16,6 +16,7 @@ prometheus-operator:
       externalUrl: https://prometheus.NAME-REPO_NAME.cluster.dev
       externalLabels:
         cluster_name: NAME-REPO_NAME
+      retention: 1d
 
   nodeExporter:
     serviceMonitor:
