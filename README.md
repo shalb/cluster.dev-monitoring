@@ -4,6 +4,8 @@ Monitoring stack based on [chart](https://github.com/helm/charts/tree/master/sta
 
 # Example app
 
+## Generic example
+
 kubernetes/apps/monitoring/monitoring.yaml
 
 ```
@@ -48,6 +50,36 @@ metadata:
     app: prometheus-operator
 ```
 
+## Azure example
+
+kubernetes/apps/monitoring/monitoring.yaml
+
+```
+...
+      values: |
+        prometheus-operator:
+          prometheusOperator:
+            admissionWebhooks:
+              failurePolicy: Fail
+              enabled: false
+            tlsProxy:
+              enabled: false
+          grafana:
+            adminUser: admin
+            adminPassword: prom-operator
+            ingress:
+              enabled: true
+              annotations:
+                cert-manager.io/cluster-issuer: letsencrypt-prod
+              path: /
+              hosts:
+                - grafana.dev.azure.com
+              tls:
+              - hosts:
+                - grafana.dev.azure.com
+                secretName: grafana-tls-secret
+...
+```
 
 # Access
 
